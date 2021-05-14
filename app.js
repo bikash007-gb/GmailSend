@@ -110,8 +110,12 @@ app.get('/start', async (req, res) => {
 });
 
 app.get('/send', async (req, res, next) => {
-  const email = await sendMessage(oAuth2Client);
-  res.json({ email });
+  try {
+    const email = await sendMessage(oAuth2Client);
+    res.json({ email });
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 app.listen(3000, () => console.log('Listening'));
