@@ -78,6 +78,10 @@ app.get('/', (req, res) => {
   res.send('Hi');
 });
 
+// @desc      Google Oauth signin to create access token and refresh token
+// @route     GET /start
+// @access    Public
+
 app.get('/start', async (req, res) => {
   fs.readFile('credentials.json', async (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
@@ -95,7 +99,6 @@ app.get('/start', async (req, res) => {
           Usertoken.getToken(code, (err, token) => {
             if (err) return console.error('Error retrieving access token', err);
             Usertoken.setCredentials(token);
-            // Store the token to disk for later program executions
             fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
               if (err) return console.error(err);
               console.log('Token stored to', TOKEN_PATH);
@@ -107,8 +110,11 @@ app.get('/start', async (req, res) => {
       }
     });
   });
+  // res.status(200).json({ success: 'true' });
 });
-
+// @desc      Send a mail
+// @route     GET /send
+// @access    Login required
 app.get('/send', async (req, res, next) => {
   try {
     const email = await sendMessage(oAuth2Client);
