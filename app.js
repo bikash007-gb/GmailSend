@@ -13,7 +13,7 @@ let SCOPES = [
 const TOKEN_PATH = 'token.json';
 
 let oAuth2Client;
-function authorize(credentials, callback) {
+function authorize(credentials) {
   const { client_secret, client_id, redirect_uris } = credentials.web;
   oAuth2Client = new google.auth.OAuth2(
     client_id,
@@ -23,7 +23,7 @@ function authorize(credentials, callback) {
   return oAuth2Client;
 }
 
-function getNewToken(oAuth2Client, callback) {
+function getNewToken(oAuth2Client) {
   const authUrl = oAuth2Client.generateAuthUrl({
     access_type: 'offline',
     scope: SCOPES,
@@ -60,7 +60,7 @@ async function sendMessage(auth) {
   var raw = makeBody(
     'awoldahaka@gmail.com',
     'bikashmali12@gmail.com',
-    'This is your subject',
+    'This is My subject',
     'I got this working finally!!!'
   );
   const gmail = google.gmail({ version: 'v1', auth });
@@ -110,11 +110,13 @@ app.get('/start', async (req, res) => {
       }
     });
   });
-  // res.status(200).json({ success: 'true' });
 });
-// @desc      Send a mail
-// @route     GET /send
-// @access    Login required
+
+/* 
+@desc      Send a mail
+ @route     GET /send
+ @access    Login required
+ */
 app.get('/send', async (req, res, next) => {
   try {
     const email = await sendMessage(oAuth2Client);
@@ -123,5 +125,5 @@ app.get('/send', async (req, res, next) => {
     console.log(error.message);
   }
 });
-
-app.listen(3000, () => console.log('Listening'));
+const port = 3000;
+app.listen(port, () => console.log(`Listening on ${port}`));
