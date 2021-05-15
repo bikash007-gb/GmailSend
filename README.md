@@ -35,7 +35,7 @@ Allow all required access. Then it will redirect to another page
 
 ![Screenshot (94)](https://user-images.githubusercontent.com/53190704/118308423-8d9ad600-b509-11eb-8ab9-534ce2d32012.png)
 
-copy that code and paste command-line prompt, and press Enter.
+copy that code and paste into command-line prompt, and press Enter.
 
 ![Screenshot (97)](https://user-images.githubusercontent.com/53190704/118309079-5d076c00-b50a-11eb-935b-461d803aa011.png)
 
